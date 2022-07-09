@@ -14,6 +14,17 @@ Navigation on ROS.
   sudo apt-get install gazebo11
   sudo apt-get install libgazebo11-dev
   ```
+* After that install ROS packages for interfacing with Gazebo ([source](https://classic.gazebosim.org/tutorials?tut=ros_installing&cat=connect_ros)):
 
+  * For ROS Melodic:
+  
+  ```sh
+  sudo apt-get install ros-melodic-gazebo-ros-pkgs ros-melodic-gazebo-ros-control
+  ```
+  
+  * For ROS Noetic:
+  ```sh
+  sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
+  ```
 ## 
 
