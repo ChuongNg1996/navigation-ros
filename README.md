@@ -49,6 +49,18 @@ Navigation on ROS 1.
   pip install --user scipy
   pip install --user networkx
   ```
+## Example 1: Use Navigation & Robot Localization Packages
+* Unlock the model folder of Gazebo so you can import model:
+  ```sh
+  sudo chmod a+x /usr/share/gazebo-9/models
+  ```
+  Then copy & paste `sample_1` folder to `/usr/share/gazebo-9/models`
+* Run the 1st example"
+  ```sh
+  roslaunch diff_drive_example diff_drive_example_community.launch 
+  ```
+  On Rviz, click on `2D Nav Goal`, drag and drop on nearby zone of the robot and observe the autonomous navigation.
+  
 ## Import 2D Map to 3D Model
 
 ### Method 1:
