@@ -52,7 +52,7 @@ Navigation on ROS 1.
 ## Example 1: Use Navigation & Robot Localization Packages
 * Unlock the model folder of Gazebo so you can import model:
   ```sh
-  sudo chmod a+x /usr/share/gazebo-9/models
+  sudo chmod a+rwx /usr/share/gazebo-9/models
   ```
   Then copy & paste `sample_1` folder to `/usr/share/gazebo-9/models`
 * Run the 1st example"
