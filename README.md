@@ -1,5 +1,5 @@
-# Navigation ROS
-Navigation on ROS.
+# Navigation ROS 1
+Navigation on ROS 1.
 
 ## Update your Gazebo to newest version
 * Follow [installation](https://classic.gazebosim.org/tutorials?tut=install_ubuntu) at *Alternative installation: step-by-step* section to update your Gazebo (default version is `x.0.0`). Note that you should check which gazebo version for your ROS version in [here](https://classic.gazebosim.org/tutorials?tut=ros_wrapper_versions&cat=connect_ros). Thus, at section 3: 
@@ -26,5 +26,23 @@ Navigation on ROS.
   ```sh
   sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
   ```
-## 
+## Install Navigation Package & Robot Localization
+* Navigation Package:
+  ```sh
+  sudo apt update
+  cd ~/catkin_ws/src
+  git clone https://github.com/ros-planning/navigation_msgs
+  git clone https://github.com/ros-planning/navigation -b $DISTRO-devel # $DISTRO is your ROS version, e.g.: melodic-devel
+  cd ..
+  catkin_make
+  ```
+* Robot Localization:
+  ```sh
+  sudo apt-get install ros-$DISTRO-robot-localization # $DISTRO is your ROS version, e.g.: ros-melodic-robot-localization
+  ```
+
+## Import 2D Map to 3D Model
+
+### Method 1:
+
 
