@@ -56,6 +56,7 @@ Navigation on ROS 1.
 
 ## Example 2: Use a set of waypoints
 * After *Example 1*, close all and open new terminals:
+
   On Terminal 1:
   ```sh
   roslaunch diff_drive_example diff_drive_example_community.launch 
