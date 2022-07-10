@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--Navigation has 5 main components: 
+        MAP to import static map
+        TRANSFORM to generate info and transformation of each link from URDF model to odom and to map
+        LOCALIZATION 
+        MOVE BASE
+        RVIZ to visualize and give position
+    Then we also have SIMULATION -->
+
+<!--http://wiki.ros.org/roslaunch/XML -->
+<launch>
+    <!--<include> tag  enables you to import another roslaunch XML file -->
+
+    <!--<param> defines a parameter to be set on the Parameter Server 
+        name="namespace/name" -> Parameter name. 
+        textfile="$(find pkg-name)/path/file.txt"(optional) -> The contents of the file will be read and stored as a string.  -->
+    
+    <!--<node> tag specifies a ROS node that you wish to have launched-->>
+
+
+  <arg name="world" default="$(find diff_drive_example)/worlds/sample_1.world" /> 
+    <!--        SIMULATION        -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch"> <!--import LAUNCH FILE willowgarage_world.launch from gazebo_ros PACKAGE-->
+            <arg name="headless" value="1"/>
+		<arg name="world_name"   value="$(arg world)"/>
+        </include>
+        <arg name="x" default="7"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0"/>
+        <arg name="roll" default="0"/>
+        <arg name="pitch" default="0"/>
+        <arg name="yaw" default="3.14"/>
+        
+        <node name="spawn_urdf" pkg="gazebo_ros"
+            type="spawn_model" output="screen"
+            args="-file $(find diff_drive_example)/models/model.urdf -urdf -model chuong
+                -x $(arg x) -y $(arg y) -z $(arg z)
+                -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/> <!--spawn model to launched Gazebo world-->
+
+
+
+    <!--        MAP       -->
+        <node name="map_server" pkg="map_server" type="map_server" args="$(find diff_drive_example)/maps/sample_1.yaml" />
+
+
+
+
+    <!--        TRANSFORMATION       -->
+        <param name="robot_description" textfile="$(find diff_drive_example)/models/model.urdf"/> <!--embedd a link to URDF model through  "robot_description"-->
+    
+        <!--Run robot_state_publisher node, take URDF model  from "robot_description" as well as joint_state_publisher from Gazebo model plugin and send
+            frame transformation (message) info to /tf (wheels, odom) and /tf_static (IMU, GPS, LiDar)-->
+        <!--http://wiki.ros.org/robot_state_publisher -->>
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="rb_st_pub"/> 
+    
+        <!--http://wiki.ros.org/joint_state_publisher -->>
+        <!--node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/-->
+    
+
+        <!-- Transform map to odom -->
+        <node pkg="tf" type="static_transform_publisher" name="map_to_odom"
+        args="0 0 0 0 0 0 map odom 100"/>
+
+
+
+    <!--        RVIZ       -->
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find diff_drive_example)/rviz/diff_drive_example.rviz"/>
+
+
+
+    <!--       LOCALIZATION         -->
+        <rosparam command="load" file="$(find diff_drive_example)/params/ekf_params.yaml" />
+        <rosparam command="load" file="$(find diff_drive_example)/params/navsat_params_sim.yaml" />
+
+        <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_odom" clear_params="true">
+            <remap from="/odometry/filtered" to="/odometry/filtered"/>
+            <remap from="/gps/fix" to="/gps"/>
+            <remap from="/imu/data" to="/imu"/> 
+        </node>
+
+        <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" clear_params="true" >
+            <remap from="odometry/filtered" to="/odom"/>
+            <remap from="imu/data" to="/imu"/> 
+            <remap from="gps/fix" to="/gps"/>
+        </node>
+
+
+
+    <!--       NAVIGATION-->>
+
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <rosparam file="$(find diff_drive_example)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find diff_drive_example)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find diff_drive_example)/params/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find diff_drive_example)/params/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find diff_drive_example)/params/move_base_params.yaml" command="load" />
+            <rosparam file="$(find diff_drive_example)/params/base_local_planner_params.yaml" command="load" />
+            <rosparam file="$(find diff_drive_example)/params/dwa_local_planner.yaml" command="load" />
+            
+            <!--remap from="laser_scan_sensor" to="chuong/laser/scan"/>
+            <remap from="scan" to="chuong/laser/scan"/-->
+
+            <remap from="cmd_vel" to="cmd_vel"/>
+            <param name="move_base/DWAPlannerROS/yaw_goal_tolerance" value="0.17"/>
+            <param name="move_base/DWAPlannerROS/xy_goal_tolerance" value="0.05"/>
+        </node>
+	
+
+</launch>

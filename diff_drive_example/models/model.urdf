@@ -1,0 +1,412 @@
+<?xml version='1.0'?>
+<robot name="my">
+
+  <!--link name="dummy">
+  </link-->
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+      <geometry>
+          <box size="0.5 0.5 0.25"/>
+      </geometry>
+    </visual>
+    <!-- Base collision, mass and inertia -->
+    <collision>
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+      <geometry>
+          <box size="0.5 0.5 0.25"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="5"/>
+      <inertia ixx="0.13" ixy="0.0" ixz="0.0" iyy="0.21" iyz="0.0" izz="0.13"/>
+    </inertial>
+
+    <!-- Caster -->
+    <visual name="caster">
+      <origin xyz="0.2 0 0.075" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.05" />
+      </geometry>
+    </visual>
+    <!-- Caster collision, mass and inertia -->
+    <collision>
+      <origin xyz="0.2 0 0.075" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.05" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+ <!--joint name="dummy_joint" type="fixed">
+     <parent link="dummy"/>
+     <child link="base_link"/>
+   </joint-->
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <pose>0 0 3 0 0 0</pose>
+  </gazebo>
+
+  <!-- Right Wheel -->
+  <link name="right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </visual>
+    <!-- Right Wheel collision, mass and inertia -->
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005"/>
+    </inertial>
+
+  </link>
+
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Right Wheel joint -->
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.30 0.225" rpy="0 0 0" /> 
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <!-- Left Wheel -->
+  <link name="left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </visual>
+    <!-- Left Wheel collision, mass and inertia -->
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570795 0 0" />
+      <geometry>
+          <cylinder length="0.1" radius="0.2" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005"/>
+    </inertial>
+  </link>
+
+  
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- Left Wheel joint -->
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.30 0.225" rpy="0 0 0" /> 
+    <axis xyz="0 1 0"/>
+  </joint>
+
+ 
+   <!-- *****************************Hokuyo Laser***************************** -->
+
+
+  <link name="hokuyo_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 0 1" />
+    <origin xyz="0.18 0 0.325" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="hokuyo_link"/>
+  </joint>
+
+  <!-- hokuyo -->
+  <gazebo reference="hokuyo_link">
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0.0 0 0.0 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.26</min>
+          <max>5</max>
+          <resolution>1</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <always_on>1</always_on>
+        <topicName>/laser/scan</topicName>
+        <frameName>hokuyo_link</frameName>
+      </plugin>
+      <always_on>1</always_on>
+      <update_rate>80</update_rate>
+      <visualize>false</visualize>
+    </sensor>
+  </gazebo>
+
+
+<!--*******************************************GPS*****************************-->
+
+
+
+  <link name="gps_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="gps_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0.15 0.325" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+  </joint>
+
+  <gazebo reference="gps_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+
+  <gazebo>
+    <plugin name="gazebo_ros_gps" filename="libhector_gazebo_ros_gps.so">
+      <updateRate>5.0</updateRate>
+      <bodyName>gps_link</bodyName>
+      <frameId>gps_link</frameId>
+      <topicName>/gps</topicName>
+      <velocityTopicName>/gps/fix_velocity</velocityTopicName>
+      <referenceLatitude>0</referenceLatitude>
+      <referenceLongitude>0</referenceLongitude>
+      <referenceHeading>0</referenceHeading>
+      <referenceAltitude>0</referenceAltitude>
+      <offset>0 0 0</offset>
+      <drift>0.001 0.001 0.001</drift>
+      <gaussianNoise>0.05 0.05 0.05</gaussianNoise>
+      <velocityDrift>0.001 0.001 0.001</velocityDrift>
+      <velocityGaussianNoise>0.5 0.5 0.5</velocityGaussianNoise>
+<!--  <drift>0.001 0.001 0.001</drift>-->
+<!--  <gaussianNoise>0.01 0.01 0.01</gaussianNoise>-->
+<!--  <velocityDrift>0 0 0</velocityDrift>-->
+<!--  <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>-->
+    </plugin>
+  </gazebo>
+
+
+
+<!--*******************************************GPS*****************************-->
+
+<!--*******************************************IMU*****************************-->
+
+
+
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0.325" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>imu_link</bodyName>
+      <topicName>/imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+
+
+<!--*******************************************IMU*****************************-->
+
+  <gazebo> 
+    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
+      <robotNamespace/>
+      <jointName>right_wheel_joint, left_wheel_joint</jointName>
+      <updateRate>10.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+
+<!--*******************************************DIFFDRIVE*****************************-->
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <robotNamespace>/</robotNamespace>
+      <publishWheelTF>true</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>
+      <alwaysOn>true</alwaysOn>
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <wheelAcceleration>1.8</wheelAcceleration>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometrySource>world</odometrySource>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <updateRate>10.0</updateRate>
+    </plugin>
+  </gazebo>
+
+<!--*******************************************DIFFDRIVE*****************************-->
+
+
+
+
+ <!--joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0.525" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+<link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link-->
+
+   <!-- camera -->
+  <!--gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type-->
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <!--mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>rrbot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo-->
+
+
+</robot>
