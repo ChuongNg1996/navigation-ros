@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<sdf version='1.5'>
+  <model name='sample_1'>
+    <static>1</static>
+    <pose>0 0 0 0 0 0</pose>
+    <link name='link'>
+	<collision name="collision">
+        	<geometry>
+         		<mesh><uri>file://sample_1/meshes/map.stl</uri></mesh>
+        	</geometry>
+      	</collision>
+      <visual name='visual'>
+        <geometry>
+            <mesh><uri>file://sample_1/meshes/map.stl</uri></mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
