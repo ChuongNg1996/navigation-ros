@@ -75,3 +75,10 @@ Navigation on ROS 1.
   contours, hierarchy = cv2.findContours(
          thresh_map, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE) # for OpenCV 3 or above
   ```
+* while `load_map.launch` is running, run `map2gazebo.launch` to export `.stl` model:
+  ```sh
+  roslaunch map2gazebo map2gazebo.launch # Find the exported file at ~/catkin_ws/src/map2gazebo/models
+  # Or
+  roslaunch map2gazebo map2gazebo.launch export_dir:=/path/to/export_dir # Export to a selected folder
+  # e.g.: roslaunch map2gazebo map2gazebo.launch export_dir:=$HOME//maps
+  ```
