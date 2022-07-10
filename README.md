@@ -77,8 +77,6 @@ Navigation on ROS 1.
   ```
 * while `load_map.launch` is running, run `map2gazebo.launch` to export `.stl` model:
   ```sh
-  roslaunch map2gazebo map2gazebo.launch # Find the exported file at ~/catkin_ws/src/map2gazebo/models
-  # Or
-  roslaunch map2gazebo map2gazebo.launch export_dir:=/path/to/export_dir # Export to a selected folder
+  roslaunch map2gazebo map2gazebo.launch export_dir:=/path/to/export_dir # Export to a selected folder "/path/to/export_dir"
   # e.g.: roslaunch map2gazebo map2gazebo.launch export_dir:=$HOME//maps
   ```
