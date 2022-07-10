@@ -1,0 +1,6 @@
+<launch>
+	<arg name="map_file" default ="$(find load_map)/map/sample_1.yaml" />
+	<node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output = "screen" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find load_map)/rviz/load_map.rviz" output = "screen"/>
+</launch>
+

@@ -1,0 +1,7 @@
+image: sample_2.pgm
+resolution: 2					# Meter/pixel
+origin: [-50.000000, -50.000000, 0.000000]	# Origin location in in meters
+negate: 0					# Flip occupied zones with free zones
+occupied_thresh: 0.65				# Threshold for occupied zones
+free_thresh: 0.196				# Threshold for free zones
+# For more info: http://wiki.ros.org/map_server
