@@ -41,11 +41,18 @@ Navigation on ROS 1.
   sudo apt-get install ros-$DISTRO-robot-localization # $DISTRO is your ROS version, e.g.: ros-melodic-robot-localization
   ```
 * [OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html).
-
+* Dependency of `map2gazebo`:
+  ```sh
+  pip install --user trimesh
+  pip install --user numpy
+  pip install --user pycollada
+  pip install --user scipy
+  pip install --user networkx
+  ```
 ## Import 2D Map to 3D Model
 
 ### Method 1:
-* Install both ROS Packages `load_map` and `map2gazebo`
+* Install both ROS Packages `load_map` and `map2gazebo`.
 * Change your image to greyscale & threshold with `rgb_to_grey.cpp` (or any equivalent tool). Put image in same folder `thresholding_grey`, adjust line 12 `Mat img_grayscale = imread("$image", IMREAD_GRAYSCALE);` where `$image` is your image ( e.g. `Mat img_grayscale = imread("100_100_room.png", IMREAD_GRAYSCALE);`), then open folder in terminal:
   ```sh
   cmake .
@@ -58,4 +65,13 @@ Navigation on ROS 1.
   ```sh
   roslaunch load_map load_map.launch
   ```
-
+* In `map2gazebo.py`, depends on your **OpenCV** version, line 73,74 can be:
+  ```sh
+  image, contours, hierarchy = cv2.findContours(
+         thresh_map, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE) # for OpenCV 2
+  ```
+  or
+    ```sh
+  contours, hierarchy = cv2.findContours(
+         thresh_map, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE) # for OpenCV 3 or above
+  ```
