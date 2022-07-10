@@ -26,7 +26,7 @@ Navigation on ROS 1.
   ```sh
   sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
   ```
-## Install Navigation Package & Robot Localization
+## Installations
 * Navigation Package:
   ```sh
   sudo apt update
@@ -40,9 +40,22 @@ Navigation on ROS 1.
   ```sh
   sudo apt-get install ros-$DISTRO-robot-localization # $DISTRO is your ROS version, e.g.: ros-melodic-robot-localization
   ```
+* [OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html).
 
 ## Import 2D Map to 3D Model
 
 ### Method 1:
-
+* Install both ROS Packages `load_map` and `map2gazebo`
+* Change your image to greyscale & threshold with `rgb_to_grey.cpp` (or any equivalent tool). Put image in same folder `thresholding_grey`, adjust line 12 `Mat img_grayscale = imread("$image", IMREAD_GRAYSCALE);` where `$image` is your image ( e.g. `Mat img_grayscale = imread("100_100_room.png", IMREAD_GRAYSCALE);`), then open folder in terminal:
+  ```sh
+  cmake .
+  make
+  ./rgb_to_grey
+  ```
+* Use [GIMP](https://www.gimp.org/) to load the generated image and export it again as m`.pgm` with `ASCII` value. 
+* Open `~/catkin_ws/src/load_map/map`, study one sample. Each sample has `.pgm` which is the image and `.yaml` file which is its description. Do the same for generated image.
+* Open `load_map.launch` in `~/catkin_ws/src/load_map/launch` and modify `<arg name="map_file" default ="$(find load_map)/map/$image.yaml" />` where `$image` is your `.yaml` file (e.g. `<arg name="map_file" default ="$(find load_map)/map/sample_2.yaml" />`). Then launch it to load the map to `map_server`:
+  ```sh
+  roslaunch load_map load_map.launch
+  ```
 
