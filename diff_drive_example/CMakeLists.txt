@@ -19,3 +19,6 @@ include_directories(
 add_executable(ekf_sensor_fusion_sim src/ekf_sensor_fusion_sim.cpp)
 add_dependencies(ekf_sensor_fusion_sim  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(ekf_sensor_fusion_sim  ${catkin_LIBRARIES} ${Eigen_LIBRARIES})
+
+add_executable(set_goals_1 src/set_goals_1.cpp)
+target_link_libraries(set_goals_1 ${catkin_LIBRARIES})
