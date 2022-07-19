@@ -40,8 +40,7 @@ Navigation on ROS 1.
   ```sh
   sudo apt-get install ros-$DISTRO-robot-localization # $DISTRO is your ROS version, e.g.: ros-melodic-robot-localization
   ```
-* [OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html).
-
+  
 ## Example 1: Use Navigation & Robot Localization Packages
 * Unlock the model folder of Gazebo so you can import model:
   ```sh
@@ -70,6 +69,7 @@ Navigation on ROS 1.
 ## Import 2D Map to 3D Model
 
 ### Method 1:
+* Install [OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html).
 * Install dependencies of `map2gazebo`:
   ```sh
   pip install --user trimesh
