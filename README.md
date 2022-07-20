@@ -133,10 +133,13 @@ Navigation on ROS 1.
   <img width="600" height="250" src="./images/nav_stack.png">
 </p>
 
-  The **command pose** (position & orientation) for the robot is published to topic `/move_base_simple_goal/goal` (with `msg` type of [`geometry_msgs/PoseStamped`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseStamped.html)), then `global_planner` node generates a **path** from initial pose to final pose. The generated **path** is then proccessed by `local_planner` node to generate **velocity command** in (m/s) for the robot body, published on the `cmd_vel` topic (with `msg` type of [`geometry_msgs/Twist`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)). Assuming that:
+  The **command pose** (position & orientation) for the robot is published to topic `/move_base_simple_goal/goal` (with `msg` type of [`geometry_msgs/PoseStamped`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseStamped.html)), then `global_planner` node generates a **path** from initial pose to final pose. The generated **path** is then proccessed by `local_planner` node to generate **velocity command** in (m/s) for the robot body, published on the `cmd_vel` topic (with `msg` type of [`geometry_msgs/Twist`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)). Assuming that (and i mean BIG ASSUMPTIONS :) ):
 * We have a real robot with the required hardware and ROS packages (e.g. navigation, localization, etc.) installed.
-* Linear **velocity command** (m/s) from `local_planner` node is denoted as **V_robot**; **V_left** & **V_right** are linear velocity for left & right wheels repsectively.  **V_robot** = **V_left** = **V_right** in straight-line path.
+* Linear **velocity command** (m/s) from `local_planner` node is denoted as **V_robot** (we ); **V_left** & **V_right** are linear velocity for left & right wheels repsectively.  **V_robot** = **V_left** = **V_right** in straight-line path.
 * **V_left** = **R_left x omega_left** & **V_right** = **R_right x omega_right** where **R_left, R_right** are wheel radii (m) and **omega_left, omega_right** are wheel angular velocity (rad/s).
-* **omega_left, omega_right** are controlled by *PWM (Pulse Width Modulation)* signals
+* **omega_left, omega_right** are controlled by **PWM** (Pulse Width Modulation) signals (e.g., **PWM** = 100 on left wheel results in **omega_left** = 0.4 (rad/s)). 
+* The relationship between **omega** and **PWM** is linear, i.e. **omega** = a**PWM** + b.
+
+Given that we only care about going in a straight line, describe how to write a ROS Node  
   
 
