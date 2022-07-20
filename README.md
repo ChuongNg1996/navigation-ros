@@ -2,6 +2,11 @@
 Navigation on ROS 1.
 
 ## Update your Gazebo to newest version
+* Possible dependencies:
+  ```sh
+  sudo apt-get update
+  sudo apt upgrade libignition-math2
+  ```
 * Follow [installation](https://classic.gazebosim.org/tutorials?tut=install_ubuntu) at *Alternative installation: step-by-step* section to update your Gazebo (default version is `x.0.0`). Note that you should check which gazebo version for your ROS version in [here](https://classic.gazebosim.org/tutorials?tut=ros_wrapper_versions&cat=connect_ros). Thus, at section 3: 
 
 * For ROS Melodic (Gazebo 9):
