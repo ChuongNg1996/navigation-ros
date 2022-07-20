@@ -128,4 +128,5 @@ Navigation on ROS 1.
 
 <p align="center">
 ![plot](./images/nav_stack.png)
+  <img width="460" height="300" src="./images/nav_stack.png">
 </p>
