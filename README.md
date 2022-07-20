@@ -127,5 +127,5 @@ Navigation on ROS 1.
 ## Questions
 
 <p align="center">
-  <img width="560" height="300" src="./images/nav_stack.png">
+  <img width="600" height="250" src="./images/nav_stack.png">
 </p>
