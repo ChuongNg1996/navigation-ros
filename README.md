@@ -148,7 +148,8 @@ Navigation on ROS 1.
   omega = a*PWM + b.
   ```
 
-Describe how a ROS Node that read **velocity commands** from `global_planner` node and generate PWM signals to the motors. 
-HINT: (1) The answer is right there, (2) The answer can be as short as one sentence with relationship between each component.
+Describe how a ROS Node that read **velocity commands** from `global_planner` node and generate PWM signals to the motors.
+
+HINT: (1) The answer is right there, (2) The answer can be as short as one sentence with relationship between each component in the node.
   
 
