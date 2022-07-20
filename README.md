@@ -31,6 +31,17 @@ Navigation on ROS 1.
   ```sh
   sudo apt-get install ros-noetic-gazebo-ros-pkgs ros-noetic-gazebo-ros-control
   ```
+  
+  If installation by `apt` is failed, install ROS-Gazevo interface from source:
+  ```sh
+  cd ~/catkin_ws/src
+  git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b $DISTRO-devel # $DISTRO is your ROS version, e.g.: melodic-devel
+  rosdep update
+  rosdep check --from-paths . --ignore-src --rosdistro $DISTRO # $DISTRO is your ROS version, e.g.: melodic-devel
+  cd ~/catkin_ws/
+  catkin_make
+  ```
+  
 ## Installations
 * Navigation Package:
   ```sh
