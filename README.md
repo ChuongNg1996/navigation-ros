@@ -141,9 +141,12 @@ Navigation on ROS 1.
   omega_right  = (2*V_robot + omega_robot*L)/(2*R_right)
   omega_left   = (2*V_robot - omega_robot*L)/(2*R_left)
   ```
-  where **L** is the distance between two wheels; **R_left, R_right** are wheel radii (m) and **omega_left, omega_right** are wheel angular velocity (rad/s).
+  where **L** is the distance between two wheels (m); **R_left, R_right** are wheel radii (m) and **omega_left, omega_right** are wheel angular velocity (rad/s).
 * **omega_left, omega_right** are controlled by **PWM** (Pulse Width Modulation) signals (e.g., **PWM** = 100 on left wheel results in **omega_left** = 0.4 (rad/s)). 
-* The relationship between **omega** and **PWM** is linear, i.e. **omega** = a**PWM** + b.
+* The relationship between **omega** and **PWM** is linear, i.e. 
+  ```sh
+  omega = a*PW + b.
+  ```
 
 Describe how to write a ROS Node  
   
