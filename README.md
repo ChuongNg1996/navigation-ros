@@ -124,4 +124,8 @@ Navigation on ROS 1.
   roslaunch map2gazebo map2gazebo.launch export_dir:=/path/to/export_dir # Export to a selected folder "/path/to/export_dir"
   # e.g.: roslaunch map2gazebo map2gazebo.launch export_dir:=$HOME//maps
   ```
+## Questions
+
+<p align="center">
 ![plot](./images/nav_stack.png)
+</p>
