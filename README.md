@@ -37,7 +37,7 @@ Navigation on ROS 1.
   cd ~/catkin_ws/src
   git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b $DISTRO-devel # $DISTRO is your ROS version, e.g.: melodic-devel
   rosdep update
-  rosdep install --from-paths src --ignore-src --rosdistro=$DISTRO -y # $DISTRO is your ROS version, e.g.: melodic-devel
+  rosdep install --from-paths . --ignore-src --rosdistro=$DISTRO -y # $DISTRO is your ROS version, e.g.: melodic-devel
   cd ~/catkin_ws/
   catkin_make
   ```
@@ -49,6 +49,8 @@ Navigation on ROS 1.
   cd ~/catkin_ws/src
   git clone https://github.com/ros-planning/navigation_msgs
   git clone https://github.com/ros-planning/navigation -b $DISTRO-devel # $DISTRO is your ROS version, e.g.: melodic-devel
+  rosdep update
+  rosdep install --from-paths . --ignore-src --rosdistro=$DISTRO -y # $DISTRO is your ROS version, e.g.: melodic-devel
   cd ..
   catkin_make
   ```
