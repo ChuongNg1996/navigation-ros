@@ -70,7 +70,9 @@ Navigation on ROS 1.
   roslaunch diff_drive_example diff_drive_example_community.launch 
   ```
   On Rviz, click on `2D Nav Goal`, drag and drop on nearby zone of the robot and observe the autonomous navigation.
-
+<p align="center">
+  <img width="600" height="250" src="./images/nav1.png">
+</p>
 ## Example 2: Use a set of waypoints
 * After *Example 1*, close all and open new terminals:
 
