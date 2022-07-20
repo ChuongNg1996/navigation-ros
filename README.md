@@ -142,7 +142,13 @@ Navigation on ROS 1.
   omega_robot = (V_right - V_left)/L
   ```
   where **L** is the distance between two wheels.
-* **V_left** = **R_left x omega_left** & **V_right** = **R_right x omega_right** where **R_left, R_right** are wheel radii (m) and **omega_left, omega_right** are wheel angular velocity (rad/s).
+* Also: 
+  ```sh
+  V_left = R_left x omega_left
+  V_right = R_right x omega_right
+  ```
+  where **R_left, R_right** are wheel radii (m) and **omega_left, omega_right** are wheel angular velocity (rad/s).
+  
 * **omega_left, omega_right** are controlled by **PWM** (Pulse Width Modulation) signals (e.g., **PWM** = 100 on left wheel results in **omega_left** = 0.4 (rad/s)). 
 * The relationship between **omega** and **PWM** is linear, i.e. **omega** = a**PWM** + b.
 
