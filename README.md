@@ -127,7 +127,7 @@ Navigation on ROS 1.
   # e.g.: roslaunch map2gazebo map2gazebo.launch export_dir:=$HOME//maps
   ```
 ## Questions
-1. Here is the diagram of Navigation package
+1. Here is the diagram of Navigation package:
 <p align="center">
   <img width="600" height="250" src="./images/nav_stack.png">
 </p>
