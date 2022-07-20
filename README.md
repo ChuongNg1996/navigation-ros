@@ -125,7 +125,8 @@ Navigation on ROS 1.
   # e.g.: roslaunch map2gazebo map2gazebo.launch export_dir:=$HOME//maps
   ```
 ## Questions
-1. Here is the diagram of navigation package (ros 1)
+1. Here is the diagram of Navigation package
 <p align="center">
   <img width="600" height="250" src="./images/nav_stack.png">
 </p>
+The command pose for the robot is published to topic `move_base_simple_goal/goal` (with `msg` type of `geometry_msgs/PoseStamped`), then `global_planner` node generates a path 
