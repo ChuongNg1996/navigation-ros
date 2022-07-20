@@ -133,7 +133,7 @@ Navigation on ROS 1.
   <img width="600" height="250" src="./images/nav_stack.png">
 </p>
 
-  The **command pose** (position & orientation) for the robot is published to topic `/move_base_simple_goal/goal` (with `msg` type of [`geometry_msgs/PoseStamped`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseStamped.html)), then `global_planner` node generates a **path** from initial pose to final pose. The generated **path** is then proccessed by `local_planner` node to generate **velocity command** in (m/s) for the robot body, published on the `cmd_vel` topic (with `msg` type of [`geometry_msgs/Twist`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)). Assuming that (and i mean BIG ASSUMPTIONS :) ):
+  The **command pose** (position & orientation) for the robot is published to topic `/move_base_simple_goal/goal` (with `msg` type of [`geometry_msgs/PoseStamped`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/PoseStamped.html)), then `global_planner` node generates a **path** from initial pose to final pose. The generated **path** is then proccessed by `local_planner` node to generate **velocity commands** (both linear and angular velocities) for the robot body, published on the `cmd_vel` topic (with `msg` type of [`geometry_msgs/Twist`](http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)). Assuming that (and i mean BIG ASSUMPTIONS :) ):
 * We have a real robot with the required hardware and ROS packages (e.g. navigation, localization, etc.) installed.
 * **LINEAR velocity command** (m/s) for the *robot body frame* from `local_planner` node is denoted as **V_robot** and **ANGULAR velocity command** (rad/s) is denoted as **omega_robot**.
 * Given that:
@@ -145,9 +145,10 @@ Navigation on ROS 1.
 * **omega_left, omega_right** are controlled by **PWM** (Pulse Width Modulation) signals (e.g., **PWM** = 100 on left wheel results in **omega_left** = 0.4 (rad/s)). 
 * The relationship between **omega** and **PWM** is linear, i.e. 
   ```sh
-  omega = a*PW + b.
+  omega = a*PWM + b.
   ```
 
-Describe how to write a ROS Node  
+Describe how a ROS Node that read **velocity commands** from `global_planner` node and generate PWM signals to the motors. 
+HINT: (1) The answer is right there, (2) The answer can be as short as one sentence with relationship between each component.
   
 
