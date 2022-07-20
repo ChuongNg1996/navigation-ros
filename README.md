@@ -127,6 +127,5 @@ Navigation on ROS 1.
 ## Questions
 
 <p align="center">
-![plot](./images/nav_stack.png)
   <img width="460" height="300" src="./images/nav_stack.png">
 </p>
