@@ -133,4 +133,4 @@ Navigation on ROS 1.
   <img width="600" height="250" src="./images/nav_stack.png">
 </p>
 
-  The command pose for the robot is published to topic `move_base_simple_goal/goal` (with `msg` type of `geometry_msgs/PoseStamped`), then `global_planner`   node generates a path. 
+  The command pose (position & orientation) for the robot is published to topic `/move_base_simple_goal/goal` (with `msg` type of `geometry_msgs/PoseStamped`), then `global_planner` node generates a **path** from initial pose to final pose. The generated **path** is then proccessed by `local_planner` node to generate **velocity command** in (m/s) for the robot body, published on the `/  
