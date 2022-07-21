@@ -73,6 +73,7 @@ Navigation on ROS 1.
 <p align="center">
   <img src="./images/nav1.png">
 </p>
+
 ## Example 2: Use a set of waypoints
 * After *Example 1*, close all and open new terminals:
 
